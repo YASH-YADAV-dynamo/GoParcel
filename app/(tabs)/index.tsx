@@ -1,74 +1,96 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import tailwind from 'tailwind-react-native-classnames';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+const SummaryScreen = () => {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-}
+    <ScrollView contentContainerStyle={tailwind`bg-gray-900 p-4 flex-grow top-10`}>
+      <View style={tailwind`flex-row items-center justify-between mb-6 p-2`}>
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+        <TouchableOpacity style={tailwind`p-2`}>
+          <Icon name="arrow-back" size={25} color="white" />
+        </TouchableOpacity>
+
+        <View style={tailwind`flex-1 ml-4 p-2 flex-row items-center`}>
+        <Text style={[
+          tailwind`text-white text-lg`,
+          {
+          fontFamily: 'Montserrat',
+          fontSize: 16,
+          fontWeight: '600',
+          lineHeight: 19.5,
+          letterSpacing: 1.5,
+          textUnderlinePosition: 'from-font',
+          textDecorationSkipInk: 'none'
+          }
+        ]}>
+          Summary
+        </Text>
+        </View>
+        <Image source={require('../../assets/images/shop.png')} style={tailwind`w-6 h-6 p-2 m-2`} />
+      </View>
+
+      <View style={tailwind`bg-gray-800 rounded-lg p-4 mb-6 shadow-lg flex-row items-center mt-2`}>
+        <Image source={require('../../assets/images/monk.png')} style={tailwind`w-20 h-20 rounded-full mr-4`} />
+        <View>
+          <Text style={tailwind`text-gray-400 text-sm`}>Upcoming Booking</Text>
+          <Text style={tailwind`text-white text-lg font-bold`}>From Riyadh to Jeddah</Text>
+          <Text style={tailwind`text-gray-400 mt-2`}>At: 12:00 PM</Text>
+        </View>
+      </View>
+
+      <View style={tailwind`flex-row justify-around mb-5`}>
+        {['Daily', 'Weekly', 'Monthly', 'Yearly'].map((tab, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[
+              tailwind`rounded-full py-2 px-6`,
+              index === 0 ? tailwind`bg-yellow-500` : tailwind`bg-gray-800`
+            ]}
+          >
+            <Text style={index === 0 ? tailwind`text-white font-bold` : tailwind`text-gray-400`}>{tab}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <View style={tailwind`flex-row justify-between items-center mb-6`}>
+        {[1, 2, 4, 5, 6, 7].map((day) => (
+          <TouchableOpacity
+        key={day}
+        style={[
+          tailwind`rounded-full p-2`,
+          day === 4 ? tailwind`bg-yellow-500` : tailwind`bg-gray-900`,
+          { width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }
+        ]}
+          >
+        <Text style={day === 4 ? tailwind`text-white font-bold` : tailwind`text-gray-400`}>{day}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <View style={tailwind`flex-row flex-wrap justify-between`}>
+        {['Total Trips', 'Total kilometers', 'Total hours\nworked', 'Total earnings'].map((title, index) => (
+          <View
+        key={index}
+        style={[
+          tailwind`rounded-3xl p-4 mb-6 shadow-lg`,
+          { width: '48%', backgroundColor: '#1B2751' }
+        ]}
+          >
+        <View style={tailwind`flex-row justify-between mb-2 items-center`}>
+          <Text style={tailwind`text-gray-400 text-sm`}>{title}</Text>
+          <Text style={tailwind`text-yellow-500 text-2xl`}>↗</Text>
+        </View>
+        <Text style={tailwind`text-white text-2xl font-bold mb-2`}>
+          {['4 TRIPS', '150 KM', '10 HOURS', 'SAR 7000'][index]}
+        </Text>
+        <Text style={tailwind`text-gray-400 text-xs`}>Including local and out of cities</Text>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
+  );
+};
+
+export default SummaryScreen;
